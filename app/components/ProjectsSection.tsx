@@ -10,6 +10,7 @@ interface Project {
   description: string;
   tags: string[];
   color: string;
+  images?: string[];
 }
 const projects: Project[] = [
   {
@@ -75,9 +76,9 @@ const projects: Project[] = [
   {
     id: 7,
     title: 'NoTo (Student Companion)',
-    category: 'Mobile Back-End',
+    category: 'Fullstack',
     description:
-      'Backend-supported mobile app for student productivity: scheduling, note-taking, Pomodoro timer with audio, and a personal finance tracker for allowances and expenses.',
+      'Fully functioning mobile app for student productivity: scheduling, note-taking, Pomodoro timer with audio, and a personal finance tracker for allowances and expenses.',
     tags: ['FlutterFlow', 'Firebase'],
     color: 'from-pink-600 to-fuchsia-500',
     images: ['/projpics/NoTo.png']
