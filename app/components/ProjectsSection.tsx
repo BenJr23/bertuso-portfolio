@@ -11,17 +11,19 @@ interface Project {
   tags: string[];
   color: string;
   images?: string[];
+  repoUrl?: string;
 }
 const projects: Project[] = [
   {
     id: 1,
     title: 'Presenza',
-    category: 'Library Backend',
+    category: 'Attendance Management System',
     description:
       'A Integrated Attendance Management System specialized backend module integrated within a library ecosystem. Manages time-in/time-out records for visitors and employees, and automates LMS account activation/deactivation on check-in/check-out.',
     tags: ['Laravel', 'PHP', 'MySQL'],
     color: 'from-blue-600 to-cyan-500',
-    images: ['/projpics/AttendanceManagementSystem.png']
+    images: ['/projpics/AttendanceManagementSystem.png'],
+    repoUrl: 'https://github.com/BenJr23/AMS-SIA.git'
   },
   {
     id: 2,
@@ -31,7 +33,8 @@ const projects: Project[] = [
       'Full-featured library management platform built with Laravel. Handles book reservations, user accounts, shelf inventory, and administrative workflows with a modern UI.',
     tags: ['Laravel', 'PHP', 'MySQL'],
     color: 'from-purple-600 to-pink-500',
-    images: ['/projpics/Novela.png']
+    images: ['/projpics/Novela.png'],
+    repoUrl: 'https://github.com/AltheaEHEM1/LMS-ADMIN.git'
   },
   {
     id: 3,
@@ -41,7 +44,8 @@ const projects: Project[] = [
       'Robust full-stack platform for parking facility operations: vehicle entry logging, parking activity tracking, and fine administration to optimize utilization and admin workflows.',
     tags: ['C#', 'ASP.NET', 'SQL Server'],
     color: 'from-emerald-600 to-teal-500',
-    images: ['/projpics/ParKing.png']
+    images: ['/projpics/ParKing.png'],
+    repoUrl: 'https://github.com/Ranyeelll/ParKing.git'
   },
   {
     id: 4,
@@ -51,7 +55,8 @@ const projects: Project[] = [
       'A tailored full-stack LMS for Saint Joseph School of Fairview. Provides course/module management, content distribution, assignments, forums, and recitation features.',
     tags: ['Next.js', 'Node.js', 'Prisma', 'Supabase'],
     color: 'from-indigo-600 to-violet-500',
-    images: ['/projpics/LearningManagementSystem.png']
+    images: ['/projpics/LearningManagementSystem.png'],
+    repoUrl: 'https://github.com/BenJr23/LMS-V0.0.6.1.git'
   },
   {
     id: 5,
@@ -61,7 +66,8 @@ const projects: Project[] = [
       'A transaction-focused desktop application built with OOP principles. Administrators manage vehicle inventory and rental lifecycles; customers can browse and book vehicles.',
     tags: ['C#', 'WinForms', 'SQLite'],
     color: 'from-amber-600 to-rose-500',
-    images: ['/projpics/VehicleRentalSystem.png']
+    images: ['/projpics/VehicleRentalSystem.png'],
+    repoUrl: 'https://github.com/dnsxmrs/VRMS.git'
   },
   {
     id: 6,
@@ -71,17 +77,19 @@ const projects: Project[] = [
       'A comprehensive hotel operations platform built with C# WinForms and SQLite. This desktop application is designed to efficiently manage core hospitality workflows, including room inventory, guest record administration, and the complete reservation and booking lifecycle.',
     tags: ['C#', 'WinForms', 'SQL Server'],
     color: 'from-yellow-600 to-orange-500',
-    images: ['/projpics/ReserveEase.png']
+    images: ['/projpics/ReserveEase.png'],
+    repoUrl: 'https://github.com/Ranyeelll/ReserveEasev2.git'
   },
   {
     id: 7,
     title: 'NoTo (Student Companion)',
-    category: 'Fullstack',
+    category: 'Mobile Development',
     description:
       'Fully functioning mobile app for student productivity: scheduling, note-taking, Pomodoro timer with audio, and a personal finance tracker for allowances and expenses.',
     tags: ['FlutterFlow', 'Firebase'],
     color: 'from-pink-600 to-fuchsia-500',
-    images: ['/projpics/NoTo.png']
+    images: ['/projpics/NoTo.png'],
+    repoUrl: 'https://app.flutterflow.io/preview/no-to-student-companion-oyd59a?page=LogInPage'
   }
 ];
 
@@ -178,8 +186,8 @@ export function ProjectsSection() {
                 <button onClick={() => setSelectedProject(project)} className="flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition-colors">
                   View Project <ExternalLink size={16} />
                 </button>
-                <button className="p-3 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors">
-                  <Github size={20} />
+                <button className="p-3 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors" onClick={() => project.repoUrl && window.open(project.repoUrl, '_blank')}>
+                  {project.id === 7 ? <ExternalLink size={20} /> : <Github size={20} />}
                 </button>
               </div>
             </div>
