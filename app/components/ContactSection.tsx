@@ -1,13 +1,28 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Linkedin, Twitter, Github, ArrowUp } from 'lucide-react';
+import { Mail, Linkedin, Phone, Github, ArrowUp } from 'lucide-react';
+
 export function ContactSection() {
+  const [copied, setCopied] = useState(false);
+
   const scrollToTop = () => {
     document.getElementById('hero')?.scrollIntoView({
       behavior: 'smooth'
     });
+  };
+
+  const handlePhoneClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigator.clipboard.writeText('09272914369');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleEmailClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.open('https://mail.google.com/mail/u/0/?to=rubenjrtbertuso@gmail.com', '_blank');
   };
   return (
     <section
@@ -44,8 +59,9 @@ export function ContactSection() {
           </p>
 
           <motion.a
-            href="mailto:hello@example.com"
-            className="inline-block px-8 py-4 bg-sky-500 text-white font-bold text-lg rounded-full hover:bg-sky-400 transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(56,189,248,0.25)] mb-16"
+            onClick={handleEmailClick}
+            href="#"
+            className="inline-block px-8 py-4 bg-sky-500 text-white font-bold text-lg rounded-full hover:bg-sky-400 transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(56,189,248,0.25)] mb-16 cursor-pointer"
             whileHover={{
               scale: 1.05
             }}
@@ -60,24 +76,33 @@ export function ContactSection() {
             {[
               {
                 icon: Github,
-                href: '#'
+                href: 'https://github.com/BenJr23',
+                label: 'GitHub'
               },
               {
                 icon: Linkedin,
-                href: '#'
+                href: 'https://www.linkedin.com/in/ruben-jr-bertuso-340a56362',
+                label: 'LinkedIn'
               },
               {
-                icon: Twitter,
-                href: '#'
+                icon: Phone,
+                href: 'tel:09272914369',
+                label: 'Phone',
+                onClick: handlePhoneClick
               },
               {
                 icon: Mail,
-                href: '#'
+                href: 'mailto:rubenjrtbertuso@gmail.com',
+                label: 'Email',
+                onClick: handleEmailClick
               }
             ].map((social, index) => (
               <motion.a
                 key={index}
                 href={social.href}
+                onClick={social.onClick}
+                target={social.label === 'GitHub' || social.label === 'LinkedIn' ? '_blank' : undefined}
+                rel={social.label === 'GitHub' || social.label === 'LinkedIn' ? 'noopener noreferrer' : undefined}
                 className="p-4 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition-all"
                 initial={{
                   opacity: 0,
@@ -98,12 +123,22 @@ export function ContactSection() {
               </motion.a>
             ))}
           </div>
+
+          {copied && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="mt-6 px-6 py-3 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-sm font-medium">
+              Phone number copied to clipboard!
+            </motion.div>
+          )}
         </motion.div>
       </div>
 
       <footer className="absolute bottom-8 left-0 right-0 py-8 text-center text-gray-600 text-sm">
         <p>
-          © {new Date().getFullYear()} Alex River. All rights reserved.
+          © {new Date().getFullYear()} Ruben Jr Bertuso. All rights reserved.
         </p>
       </footer>
 

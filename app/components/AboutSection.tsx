@@ -99,7 +99,7 @@ export function AboutSection() {
             </motion.div>
 
             <motion.div
-              className="absolute -left-8 bottom-10 bg-surface-dark/90 backdrop-blur-md p-4 rounded-xl border border-white/10 shadow-xl"
+              className="absolute -left-8 top-1/3 bg-surface-dark/90 backdrop-blur-md p-4 rounded-xl border border-white/10 shadow-xl"
               animate={{
                 y: [0, 10, 0]
               }}
@@ -115,8 +115,8 @@ export function AboutSection() {
                   <Globe size={20} />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-400">Projects</p>
-                  <p className="text-lg font-bold text-white">50+ Done</p>
+                  <p className="text-xs text-gray-400">Tech Stacks</p>
+                  <p className="text-lg font-bold text-white">8+</p>
                 </div>
               </div>
             </motion.div>
