@@ -23,3 +23,13 @@ body {
   /* Prevent iOS/Android overscroll from revealing white behind the app */
   overscroll-behavior: none;
 }
+
+/* Multi-line truncation helper for mobile (Tailwind line-clamp may not be enabled) */
+@media (max-width: 767px) {
+  .mobile-line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

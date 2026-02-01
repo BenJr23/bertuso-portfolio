@@ -254,7 +254,7 @@ export function ProjectsSection() {
                 {project.title}
               </h3>
 
-              <p className="text-gray-300 text-base md:text-lg mb-5 md:mb-8 max-w-xl md:max-w-lg group-hover:text-white transition-colors duration-300 line-clamp-3 md:line-clamp-none">
+              <p className="text-gray-300 text-base md:text-lg mb-5 md:mb-8 max-w-xl md:max-w-lg group-hover:text-white transition-colors duration-300 mobile-line-clamp-4">
                 {project.description}
               </p>
 
