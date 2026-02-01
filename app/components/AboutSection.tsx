@@ -55,9 +55,9 @@ export function AboutSection() {
             <div className="absolute inset-0 border-2 border-primary-dark/30 rounded-2xl translate-x-4 translate-y-4" />
             <div className="absolute inset-0 bg-surface-dark rounded-2xl overflow-hidden shadow-2xl border border-white/10">
               <div className="absolute inset-0 bg-gradient-to-br from-primary-dark/20 to-purple-500/20 mix-blend-overlay" />
-              {/* Placeholder for profile image */}
+              {/* Profile image (from public/profile.jpg) */}
               <div className="w-full h-full flex items-center justify-center bg-gray-800 text-gray-600">
-                <User size={64} />
+                <img src="/profile.png" alt="Profile" className="w-full h-full object-cover" />
               </div>
             </div>
 
@@ -79,7 +79,7 @@ export function AboutSection() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-400">Experience</p>
-                  <p className="text-lg font-bold text-white">5+ Years</p>
+                  <p className="text-lg font-bold text-white">4+ Years</p>
                 </div>
               </div>
             </motion.div>
@@ -134,13 +134,13 @@ export function AboutSection() {
             variants={itemVariants}
             className="text-4xl md:text-5xl font-display font-bold text-white mb-8 leading-tight">
 
-            Bridging the gap between{' '}
+            Engineering the logic that{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-dark to-purple-400">
-              design
+              powers
             </span>{' '}
-            and{' '}
+            exceptional{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-dark to-blue-500">
-              engineering
+              experiences
             </span>
             .
           </motion.h2>
@@ -149,25 +149,26 @@ export function AboutSection() {
             variants={itemVariants}
             className="text-gray-400 text-lg leading-relaxed mb-6">
 
-            I'm a passionate Full Stack Developer with a keen eye for design. I
-            build accessible, pixel-perfect, and performant web applications. My
-            goal is to create digital products that not only function flawlessly
-            but also provide an immersive user experience.
+            I'm a dedicated Back-end Developer with a focus on scalable 
+            architecture. I build robust, secure, and efficient systems 
+            using a diverse toolkit. My goal is to create server-side 
+            solutions that not only handle data flawlessly but also 
+            provide a seamless foundation for the user experience.
           </motion.p>
 
           <motion.p
             variants={itemVariants}
             className="text-gray-400 text-lg leading-relaxed mb-8">
 
-            When I'm not coding, you can find me exploring new technologies,
-            contributing to open source, or enjoying a good cup of coffee while
-            sketching new ideas.
+            When I'm not architecting databases or building APIs, you can 
+            find me exploring new frameworks, optimizing deployment pipelines, 
+            or diving into documentation with a good cup of coffee.
           </motion.p>
 
           <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
             {[
             'Problem Solver',
-            'Creative Thinker',
+            'Communication Skills',
             'Team Player',
             'Fast Learner'].
             map((tag) =>

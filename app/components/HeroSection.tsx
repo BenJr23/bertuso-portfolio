@@ -48,10 +48,10 @@ export function HeroSection() {
             }}>
 
             <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400">
-              ALEX
+              RUBEN JR
             </span>
             <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary-dark to-blue-500 ml-4">
-              RIVER
+              BERTUSO
             </span>
           </motion.h1>
         </div>
@@ -72,9 +72,9 @@ export function HeroSection() {
             once: true
           }}>
 
-          Crafting digital experiences with code and motion.
+          Engineering robust systems and scalable server architecture.
           <br />
-          Specialized in React, TypeScript, and immersive UI.
+          Specialized in Laravel, .NET, Node.js, and cloud-native data solutions.
         </motion.p>
       </div>
 

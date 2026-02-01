@@ -45,7 +45,7 @@ export function ContactSection() {
 
           <motion.a
             href="mailto:hello@example.com"
-            className="inline-block px-8 py-4 bg-primary-dark text-black font-bold text-lg rounded-full hover:bg-primary-light transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(6,182,212,0.4)] mb-16"
+            className="inline-block px-8 py-4 bg-sky-500 text-white font-bold text-lg rounded-full hover:bg-sky-400 transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(56,189,248,0.25)] mb-16"
             whileHover={{
               scale: 1.05
             }}

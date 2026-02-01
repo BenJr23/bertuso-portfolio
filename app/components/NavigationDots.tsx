@@ -30,6 +30,13 @@ export function NavigationDots({
   activeSection,
   onNavigate
 }: NavigationDotsProps) {
+  const dotColorMap: Record<string, string> = {
+    hero: 'bg-gradient-to-r from-primary-dark to-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]',
+    about: 'bg-gradient-to-r from-primary-dark to-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.8)]',
+    skills: 'bg-gradient-to-r from-primary-dark to-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]',
+    projects: 'bg-gradient-to-r from-primary-dark to-purple-400 shadow-[0_0_10px_rgba(139,92,246,0.8)]',
+    contact: 'bg-gradient-to-r from-primary-dark to-teal-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]'
+  };
   return (
     <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-6">
       {sections.map((section) =>
@@ -55,7 +62,7 @@ export function NavigationDots({
 
           }
             <div
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${activeSection === section.id ? 'bg-primary-dark scale-125 shadow-[0_0_10px_rgba(34,211,238,0.8)]' : 'bg-gray-500/50 hover:bg-gray-400'}`} />
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${activeSection === section.id ? `${dotColorMap[section.id] ?? 'bg-primary-dark'} scale-125` : 'bg-gray-500/50 hover:bg-gray-400'}`} />
 
           </div>
         </button>
