@@ -1,51 +1,32 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-interface Skill {
-  name: string;
-  level: number;
-  category: string;
+interface SkillCategory {
+  title: string;
+  items: string[];
 }
-const skills: Skill[] = [
-{
-  name: 'React / Next.js',
-  level: 95,
-  category: 'Frontend'
-},
-{
-  name: 'TypeScript',
-  level: 90,
-  category: 'Frontend'
-},
-{
-  name: 'Tailwind CSS',
-  level: 98,
-  category: 'Frontend'
-},
-{
-  name: 'Node.js',
-  level: 85,
-  category: 'Backend'
-},
-{
-  name: 'Python',
-  level: 80,
-  category: 'Backend'
-},
-{
-  name: 'UI/UX Design',
-  level: 75,
-  category: 'Design'
-},
-{
-  name: 'Framer Motion',
-  level: 88,
-  category: 'Animation'
-},
-{
-  name: 'PostgreSQL',
-  level: 70,
-  category: 'Database'
-}];
+
+const categories: SkillCategory[] = [
+  {
+    title: 'PHP Stack',
+    items: ['Laragon', 'Laravel', 'PHP', 'MySQL', 'JavaScript', 'Render']
+  },
+  {
+    title: '.NET Stack',
+    items: ['C#', 'ASP.NET', 'Microsoft SQL Server']
+  },
+  {
+    title: 'Next.js Stack',
+    items: ['Node.js', 'React', 'Prisma', 'Supabase', 'Clerk Auth', 'Vercel']
+  },
+  {
+    title: 'Application Development',
+    items: ['C# WinForms (OOP)', 'Python Tkinter', 'SQLite']
+  },
+  {
+    title: 'Mobile Back-End',
+    items: ['FlutterFlow', 'Firebase']
+  }
+];
 
 export function SkillsSection() {
   return (
@@ -79,44 +60,34 @@ export function SkillsSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
-          {skills.map((skill, index) =>
-          <div key={skill.name} className="relative">
-              <div className="flex justify-between items-end mb-2">
-                <span className="text-lg font-medium text-white">
-                  {skill.name}
-                </span>
-                <span className="text-sm text-primary-dark font-mono">
-                  {skill.level}%
-                </span>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {categories.map((cat, i) => (
+            <motion.div
+              key={cat.title}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: i * 0.08 }}
+              viewport={{ once: true }}
+              className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
 
-              {/* Progress Bar Container */}
-              <div className="h-2 w-full bg-surface-dark rounded-full overflow-hidden border border-white/5">
-                {/* Animated Progress Bar */}
-                <motion.div
-                className="h-full bg-gradient-to-r from-primary-dark to-blue-500 rounded-full relative"
-                initial={{
-                  width: 0
-                }}
-                whileInView={{
-                  width: `${skill.level}%`
-                }}
-                transition={{
-                  duration: 1.5,
-                  delay: index * 0.1,
-                  ease: 'easeOut'
-                }}
-                viewport={{
-                  once: true,
-                  margin: '-50px'
-                }}>
+              <h3 className="text-xl font-medium text-white mb-4 flex items-center gap-3">
+                <span className="inline-block w-3 h-3 rounded-full bg-primary-dark/80" />
+                {cat.title}
+              </h3>
 
-                  <div className="absolute right-0 top-0 bottom-0 w-px bg-white/50 shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
-                </motion.div>
+              <div className="flex flex-wrap gap-2">
+                {cat.items.map((item, idx) => (
+                  <span
+                    key={item}
+                    className="inline-flex items-center gap-3 px-3 py-1 rounded-lg bg-gradient-to-r from-white/6 to-white/3 border border-white/5 text-sm text-gray-200 hover:from-primary-dark/30 hover:to-blue-500/10 transition-colors"
+                  >
+                    <span className={`w-2 h-2 rounded-full ${idx % 2 === 0 ? 'bg-primary-dark' : 'bg-blue-500'}`} />
+                    <span className="whitespace-nowrap">{item}</span>
+                  </span>
+                ))}
               </div>
-            </div>
-          )}
+            </motion.div>
+          ))}
         </div>
 
         {/* Additional decorative elements */}
