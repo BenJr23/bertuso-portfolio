@@ -2,10 +2,20 @@ import React, { Children, useState } from 'react';
 import { motion } from 'framer-motion';
 import { User, Code, Globe, Coffee } from 'lucide-react';
 import { SkillsModal } from './SkillsModal';
-import { SoftSkillsModal } from './SoftSkillsModal';
+
+const softSkills = [
+  'Problem Solver',
+  'Communication Skills',
+  'Team Player',
+  'Fast Learner',
+  'Adaptable',
+  'Detail-Oriented',
+  'Leadership',
+  'Mentorship'
+];
+
 export function AboutSection() {
   const [isSkillsModalOpen, setIsSkillsModalOpen] = useState(false);
-  const [isSoftSkillsModalOpen, setIsSoftSkillsModalOpen] = useState(false);
   const containerVariants = {
     hidden: {
       opacity: 0
@@ -136,7 +146,7 @@ export function AboutSection() {
 
           <motion.h2
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-display font-bold text-white mb-8 leading-tight">
+            className="text-5xl md:text-3xl font-display font-bold text-white mb-8 leading-tight">
 
             Engineering the logic that{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-dark to-purple-400">
@@ -169,33 +179,26 @@ export function AboutSection() {
             or diving into documentation with a good cup of coffee.
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-4 mb-8">
-            {[
-            'Problem Solver',
-            'Communication Skills',
-            'Team Player'].
-            map((tag) =>
-            <span
-              key={tag}
-              className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300">
-
-                {tag}
-              </span>
-            )}
+          <motion.div variants={itemVariants} className="mb-8">
+            <label className="text-sm text-gray-400 mb-3 block">Soft Skills</label>
+            <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+              {softSkills.map((skill, idx) => (
+                <motion.span
+                  key={skill}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.05 }}
+                  className="flex-shrink-0 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 whitespace-nowrap hover:bg-white/10 transition-colors"
+                >
+                  {skill}
+                </motion.span>
+              ))}
+            </div>
           </motion.div>
-
-          <motion.button
-            variants={itemVariants}
-            onClick={() => setIsSoftSkillsModalOpen(true)}
-            className="text-primary-dark/70 hover:text-primary-dark text-sm font-medium transition-colors"
-          >
-            + View all soft skills
-          </motion.button>
         </motion.div>
       </div>
 
       <SkillsModal isOpen={isSkillsModalOpen} onClose={() => setIsSkillsModalOpen(false)} />
-      <SoftSkillsModal isOpen={isSoftSkillsModalOpen} onClose={() => setIsSoftSkillsModalOpen(false)} />
     </section>);
 
 }
