@@ -19,7 +19,7 @@ export function ParallaxBackground() {
       className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
 
       {/* Deep space gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background-dark via-[#0f172a] to-background-dark opacity-90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background-dark via-[#0f172a] to-background-dark opacity-100" />
 
       {/* Animated Orbs */}
       <motion.div
