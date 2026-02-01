@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Github, ExternalLink, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { ProjectModal } from './ProjectModal';
@@ -97,21 +97,88 @@ export function ProjectsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const handleProjectsWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (containerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
-      const maxScroll = scrollWidth - clientWidth;
-      
-      // Calculate new scroll position and clamp it to valid range
-      const newScrollLeft = Math.max(0, Math.min(scrollLeft + e.deltaY, maxScroll));
-      
-      // Apply the new scroll position
-      containerRef.current.scrollLeft = newScrollLeft;
-    }
-  };
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const getCards = () =>
+      Array.from(el.querySelectorAll<HTMLElement>('[data-project-card="true"]'));
+
+    const getClosestCardIndex = () => {
+      const cards = getCards();
+      if (cards.length === 0) return 0;
+
+      const containerRect = el.getBoundingClientRect();
+      const containerCenterX = containerRect.left + containerRect.width / 2;
+
+      let bestIdx = 0;
+      let bestDist = Number.POSITIVE_INFINITY;
+      for (let i = 0; i < cards.length; i++) {
+        const rect = cards[i].getBoundingClientRect();
+        const center = rect.left + rect.width / 2;
+        const dist = Math.abs(center - containerCenterX);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = i;
+        }
+      }
+      return bestIdx;
+    };
+
+    // Track the intended card index so repeated wheel ticks always advance,
+    // even if smooth scrolling hasn't finished yet.
+    let targetIndex = getClosestCardIndex();
+
+    let scrollRaf: number | null = null;
+    const onScroll = () => {
+      if (scrollRaf !== null) return;
+      scrollRaf = window.requestAnimationFrame(() => {
+        scrollRaf = null;
+        targetIndex = getClosestCardIndex();
+      });
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      // Let the browser handle pinch-to-zoom gestures.
+      if (e.ctrlKey) return;
+
+      const rawDelta =
+        Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (rawDelta === 0) return;
+
+      const direction = rawDelta > 0 ? 1 : -1;
+
+      const cards = getCards();
+      if (cards.length === 0) return;
+
+      // Ensure we're in sync if the user dragged the scrollbar.
+      targetIndex = getClosestCardIndex();
+
+      const nextIndex = Math.max(0, Math.min(targetIndex + direction, cards.length - 1));
+
+      // If we can't move in that direction, let vertical scrolling happen.
+      if (nextIndex === targetIndex) return;
+      targetIndex = nextIndex;
+
+      // Keep the page/section fixed while scrolling the horizontal list.
+      e.preventDefault();
+      e.stopPropagation();
+      cards[targetIndex].scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center'
+      });
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false, capture: true });
+    el.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      if (scrollRaf !== null) window.cancelAnimationFrame(scrollRaf);
+      el.removeEventListener('scroll', onScroll);
+      el.removeEventListener('wheel', onWheel, { capture: true } as AddEventListenerOptions);
+    };
+  }, []);
   return (
     <section
       id="projects"
@@ -148,12 +215,12 @@ export function ProjectsSection() {
       {/* Horizontal Scroll Container */}
       <div
         ref={containerRef}
-        onWheel={handleProjectsWheel}
-        className="flex overflow-x-auto snap-x snap-mandatory gap-6 px-4 md:px-12 pb-12 no-scrollbar items-center h-[72vh]">
+        className="flex overflow-x-auto overflow-y-hidden snap-x snap-proximity gap-6 px-4 md:px-12 pb-12 no-scrollbar items-center h-[72vh] overscroll-contain touch-pan-x">
 
         {projects.map((project, index) =>
         <motion.div
           key={project.id}
+          data-project-card="true"
           className="relative flex-none w-[90vw] md:w-[720px] lg:w-[880px] h-full snap-center rounded-3xl overflow-hidden bg-surface-dark border border-white/10 group"
           initial={{
             opacity: 0,

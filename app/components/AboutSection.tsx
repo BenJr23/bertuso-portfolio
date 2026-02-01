@@ -1,6 +1,7 @@
-import React, { Children, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { User, Code, Globe, Coffee } from 'lucide-react';
+import { Code, Globe } from 'lucide-react';
 import { SkillsModal } from './SkillsModal';
 
 const softSkills = [
@@ -18,21 +19,45 @@ export function AboutSection() {
   const [isSkillsModalOpen, setIsSkillsModalOpen] = useState(false);
   const softSkillsRef = React.useRef<HTMLDivElement>(null);
 
-  const handleSoftSkillsWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (softSkillsRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = softSkillsRef.current;
-      const maxScroll = scrollWidth - clientWidth;
-      
-      // Calculate new scroll position and clamp it to valid range
-      const newScrollLeft = Math.max(0, Math.min(scrollLeft + e.deltaY, maxScroll));
-      
-      // Apply the new scroll position
-      softSkillsRef.current.scrollLeft = newScrollLeft;
-    }
-  };
+  useEffect(() => {
+    const el = softSkillsRef.current;
+    if (!el) return;
+
+    const onWheel = (e: WheelEvent) => {
+      // Let the browser handle pinch-to-zoom gestures.
+      if (e.ctrlKey) return;
+
+      const maxScrollLeft = el.scrollWidth - el.clientWidth;
+      if (maxScrollLeft <= 0) return;
+
+      const rawDelta =
+        Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (rawDelta === 0) return;
+
+      const delta =
+        e.deltaMode === 1
+          ? rawDelta * 16
+          : e.deltaMode === 2
+            ? rawDelta * el.clientWidth
+            : rawDelta;
+
+      const nextScrollLeft = Math.max(
+        0,
+        Math.min(el.scrollLeft + delta, maxScrollLeft)
+      );
+
+      if (nextScrollLeft === el.scrollLeft) return;
+
+      // Keep the page/section fixed while scrolling the horizontal list.
+      e.preventDefault();
+      e.stopPropagation();
+      el.scrollLeft = nextScrollLeft;
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false, capture: true });
+    return () =>
+      el.removeEventListener('wheel', onWheel, { capture: true } as AddEventListenerOptions);
+  }, []);
   const containerVariants = {
     hidden: {
       opacity: 0
@@ -87,8 +112,14 @@ export function AboutSection() {
             <div className="absolute inset-0 bg-surface-dark rounded-2xl overflow-hidden shadow-2xl border border-white/10">
               <div className="absolute inset-0 bg-gradient-to-br from-primary-dark/20 to-purple-500/20 mix-blend-overlay" />
               {/* Profile image (from public/profile.jpg) */}
-              <div className="w-full h-full flex items-center justify-center bg-gray-800 text-gray-600">
-                <img src="/profile.png" alt="Profile" className="w-full h-full object-cover" />
+              <div className="relative w-full h-full bg-gray-800">
+                <Image
+                  src="/profile.png"
+                  alt="Profile"
+                  fill
+                  sizes="(max-width: 768px) 90vw, 448px"
+                  className="object-cover"
+                />
               </div>
             </div>
 
@@ -180,7 +211,7 @@ export function AboutSection() {
             variants={itemVariants}
             className="text-gray-400 text-lg leading-relaxed mb-6">
 
-            I'm a dedicated Back-end Developer with a focus on scalable 
+            I&apos;m a dedicated Back-end Developer with a focus on scalable 
             architecture. I build robust, secure, and efficient systems 
             using a diverse toolkit. My goal is to create server-side 
             solutions that not only handle data flawlessly but also 
@@ -191,7 +222,7 @@ export function AboutSection() {
             variants={itemVariants}
             className="text-gray-400 text-lg leading-relaxed mb-8">
 
-            When I'm not architecting databases or building APIs, you can 
+            When I&apos;m not architecting databases or building APIs, you can 
             find me exploring new frameworks, optimizing deployment pipelines, 
             or diving into documentation with a good cup of coffee.
           </motion.p>
@@ -200,8 +231,7 @@ export function AboutSection() {
             <label className="text-sm text-gray-400 mb-3 block">Soft Skills</label>
             <div
               ref={softSkillsRef}
-              onWheel={handleSoftSkillsWheel}
-              className="flex gap-2 overflow-x-auto pb-2 no-scrollbar scroll-smooth"
+              className="flex gap-2 overflow-x-auto overflow-y-hidden pb-2 no-scrollbar scroll-smooth overscroll-contain touch-pan-x"
             >
               {softSkills.map((skill, idx) => (
                 <motion.span
