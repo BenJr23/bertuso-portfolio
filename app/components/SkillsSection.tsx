@@ -61,7 +61,7 @@ const categories: SkillCategory[] = [
     items: ['C# WinForms (OOP)', 'Python Tkinter', 'SQLite']
   },
   {
-    title: 'Mobile Back-End',
+    title: 'Mobile Development',
     items: ['FlutterFlow', 'Firebase']
   }
 ];
