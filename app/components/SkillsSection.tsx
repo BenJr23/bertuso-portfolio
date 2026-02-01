@@ -46,7 +46,7 @@ const accentMap = [
 const categories: SkillCategory[] = [
   {
     title: 'PHP Stack',
-    items: ['Laragon', 'Laravel', 'PHP', 'MySQL', 'JavaScript', 'Render']
+    items: ['Laragon', 'Laravel', 'PHP', 'MySQL', 'JavaScript', 'Railway']
   },
   {
     title: '.NET Stack',

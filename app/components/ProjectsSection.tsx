@@ -60,11 +60,11 @@ const projects: Project[] = [
   },
   {
     id: 5,
-    title: 'Vehicle Rental System',
+    title: 'Tara Biyahe',
     category: 'Desktop App',
     description:
-      'A transaction-focused desktop application built with OOP principles. Administrators manage vehicle inventory and rental lifecycles; customers can browse and book vehicles.',
-    tags: ['C#', 'WinForms', 'SQLite'],
+      'A Vehicle Rental System transaction-focused desktop application built with Python Tkinter and SQLite. The system allows administrators to maintain a centralized vehicle inventory and manage the complete rental lifecycle, while providing customers with an intuitive desktop interface to browse availability and book rentals.',
+    tags: ['Python', 'Tkinter', 'SQLite'],
     color: 'from-amber-600 to-rose-500',
     images: ['/projpics/VehicleRentalSystem.png'],
     repoUrl: 'https://github.com/dnsxmrs/VRMS.git'

@@ -6,6 +6,7 @@ import { Mail, Linkedin, Phone, Github, ArrowUp } from 'lucide-react';
 
 export function ContactSection() {
   const [copied, setCopied] = useState(false);
+  const contactEmail = 'rubenjrtbertuso@gmail.com';
 
   const scrollToTop = () => {
     document.getElementById('hero')?.scrollIntoView({
@@ -22,7 +23,13 @@ export function ContactSection() {
 
   const handleEmailClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    window.open('https://mail.google.com/mail/u/0/?to=rubenjrtbertuso@gmail.com', '_blank');
+
+    const to = encodeURIComponent(contactEmail);
+    const gmailComposeUrl = `https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${to}`;
+    const mailtoUrl = `mailto:${contactEmail}`;
+
+    const win = window.open(gmailComposeUrl, '_blank', 'noopener,noreferrer');
+    if (!win) window.location.href = mailtoUrl;
   };
   return (
     <section
@@ -47,7 +54,7 @@ export function ContactSection() {
           }}>
 
           <h2 className="text-5xl md:text-7xl font-display font-bold text-white mb-8">
-            Let's work <br />
+            Let&apos;s work <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-dark to-purple-500">
               together.
             </span>
@@ -55,7 +62,7 @@ export function ContactSection() {
 
           <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
             Currently available for freelance projects and open to full-time
-            opportunities. Have an idea? Let's discuss it.
+            opportunities. Have an idea? Let&apos;s discuss it.
           </p>
 
           <motion.a
@@ -92,7 +99,7 @@ export function ContactSection() {
               },
               {
                 icon: Mail,
-                href: 'mailto:rubenjrtbertuso@gmail.com',
+                href: `mailto:${contactEmail}`,
                 label: 'Email',
                 onClick: handleEmailClick
               }
