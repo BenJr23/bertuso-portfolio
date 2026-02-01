@@ -243,7 +243,7 @@ export function ProjectsSection() {
             className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
 
 
-            <div className="absolute inset-0 p-10 md:p-16 flex flex-col justify-end z-10">
+            <div className="absolute inset-0 p-6 sm:p-8 md:p-16 flex flex-col justify-end z-10">
               <div className="mb-auto">
                 <span className="inline-block px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-medium text-white mb-4 border border-white/10">
                   {project.category}
@@ -254,11 +254,11 @@ export function ProjectsSection() {
                 {project.title}
               </h3>
 
-              <p className="text-gray-300 text-lg mb-8 max-w-xl md:max-w-lg group-hover:text-white transition-colors duration-300">
+              <p className="text-gray-300 text-base md:text-lg mb-5 md:mb-8 max-w-xl md:max-w-lg group-hover:text-white transition-colors duration-300 line-clamp-3 md:line-clamp-none">
                 {project.description}
               </p>
 
-              <div className="flex flex-wrap gap-3 mb-8">
+              <div className="flex flex-wrap gap-3 mb-6 md:mb-8">
                 {project.tags.map((tag) =>
               <span key={tag} className="text-sm text-gray-400 font-mono">
                     #{tag}
