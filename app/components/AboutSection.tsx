@@ -16,6 +16,23 @@ const softSkills = [
 
 export function AboutSection() {
   const [isSkillsModalOpen, setIsSkillsModalOpen] = useState(false);
+  const softSkillsRef = React.useRef<HTMLDivElement>(null);
+
+  const handleSoftSkillsWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (softSkillsRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = softSkillsRef.current;
+      const maxScroll = scrollWidth - clientWidth;
+      
+      // Calculate new scroll position and clamp it to valid range
+      const newScrollLeft = Math.max(0, Math.min(scrollLeft + e.deltaY, maxScroll));
+      
+      // Apply the new scroll position
+      softSkillsRef.current.scrollLeft = newScrollLeft;
+    }
+  };
   const containerVariants = {
     hidden: {
       opacity: 0
@@ -181,7 +198,11 @@ export function AboutSection() {
 
           <motion.div variants={itemVariants} className="mb-8">
             <label className="text-sm text-gray-400 mb-3 block">Soft Skills</label>
-            <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+            <div
+              ref={softSkillsRef}
+              onWheel={handleSoftSkillsWheel}
+              className="flex gap-2 overflow-x-auto pb-2 no-scrollbar scroll-smooth"
+            >
               {softSkills.map((skill, idx) => (
                 <motion.span
                   key={skill}

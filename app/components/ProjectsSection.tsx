@@ -96,6 +96,22 @@ const projects: Project[] = [
 export function ProjectsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const handleProjectsWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (containerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
+      const maxScroll = scrollWidth - clientWidth;
+      
+      // Calculate new scroll position and clamp it to valid range
+      const newScrollLeft = Math.max(0, Math.min(scrollLeft + e.deltaY, maxScroll));
+      
+      // Apply the new scroll position
+      containerRef.current.scrollLeft = newScrollLeft;
+    }
+  };
   return (
     <section
       id="projects"
@@ -132,6 +148,7 @@ export function ProjectsSection() {
       {/* Horizontal Scroll Container */}
       <div
         ref={containerRef}
+        onWheel={handleProjectsWheel}
         className="flex overflow-x-auto snap-x snap-mandatory gap-6 px-4 md:px-12 pb-12 no-scrollbar items-center h-[72vh]">
 
         {projects.map((project, index) =>
