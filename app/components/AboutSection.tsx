@@ -1,7 +1,11 @@
-import React, { Children } from 'react';
+import React, { Children, useState } from 'react';
 import { motion } from 'framer-motion';
 import { User, Code, Globe, Coffee } from 'lucide-react';
+import { SkillsModal } from './SkillsModal';
+import { SoftSkillsModal } from './SoftSkillsModal';
 export function AboutSection() {
+  const [isSkillsModalOpen, setIsSkillsModalOpen] = useState(false);
+  const [isSoftSkillsModalOpen, setIsSoftSkillsModalOpen] = useState(false);
   const containerVariants = {
     hidden: {
       opacity: 0
@@ -165,12 +169,11 @@ export function AboutSection() {
             or diving into documentation with a good cup of coffee.
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-4 mb-8">
             {[
             'Problem Solver',
             'Communication Skills',
-            'Team Player',
-            'Fast Learner'].
+            'Team Player'].
             map((tag) =>
             <span
               key={tag}
@@ -180,8 +183,19 @@ export function AboutSection() {
               </span>
             )}
           </motion.div>
+
+          <motion.button
+            variants={itemVariants}
+            onClick={() => setIsSoftSkillsModalOpen(true)}
+            className="text-primary-dark/70 hover:text-primary-dark text-sm font-medium transition-colors"
+          >
+            + View all soft skills
+          </motion.button>
         </motion.div>
       </div>
+
+      <SkillsModal isOpen={isSkillsModalOpen} onClose={() => setIsSkillsModalOpen(false)} />
+      <SoftSkillsModal isOpen={isSoftSkillsModalOpen} onClose={() => setIsSoftSkillsModalOpen(false)} />
     </section>);
 
 }
