@@ -164,7 +164,7 @@ export function AboutSection() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-400">Tech Stacks</p>
-                  <p className="text-lg font-bold text-white">8+</p>
+                  <p className="text-lg font-bold text-white">6+</p>
                 </div>
               </div>
             </motion.div>
